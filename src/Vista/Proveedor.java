@@ -5,17 +5,33 @@
  */
 package Vista;
 
+import DAO.ProveedorDAO;
+import Tabla.Tabla_ProveedorVO;
+import VO.ProveedorVO;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import validaciones.Validaciones;
+
 /**
  *
  * @author aremy
  */
 public class Proveedor extends javax.swing.JFrame {
-
+    ProveedorVO p;
+    ProveedorDAO pDAO;
+    validaciones.Validaciones v;
+    Tabla.Tabla_ProveedorVO tproveedor;
     /**
      * Creates new form Empleado
      */
     public Proveedor() {
-        initComponents();
+         initComponents();
+        p= new ProveedorVO();
+        v = new Validaciones();
+        pDAO = new ProveedorDAO();
+        tproveedor = new Tabla_ProveedorVO();
+        tproveedor.visualizar_ProveedorVO(tProveedores);
+       
         //Pantalla centrada de la interface
         this.setLocationRelativeTo(null);
     }
@@ -42,13 +58,13 @@ public class Proveedor extends javax.swing.JFrame {
         jLabelAPProveedor = new javax.swing.JLabel();
         jLabelEmpleado = new javax.swing.JLabel();
         jLabelSPProveedor = new javax.swing.JLabel();
-        jTextFieldEmpresaProveedor = new javax.swing.JTextField();
-        jTextFieldRFCProveedor = new javax.swing.JTextField();
-        jTextFieldNombreProveedor = new javax.swing.JTextField();
-        jTextFieldPAProveedor = new javax.swing.JTextField();
-        jTextFieldSAProveedor = new javax.swing.JTextField();
-        jTextFieldDireccionProveedor = new javax.swing.JTextField();
-        jTextFieldTelProveedor = new javax.swing.JTextField();
+        txtEmpresaProveedor = new javax.swing.JTextField();
+        txtRFCProveedor = new javax.swing.JTextField();
+        txtNombreProveedor = new javax.swing.JTextField();
+        txtPAProveedor = new javax.swing.JTextField();
+        txtSAProveedor = new javax.swing.JTextField();
+        txtDireccionProveedor = new javax.swing.JTextField();
+        txtTelProveedor = new javax.swing.JTextField();
         jPanelBotones = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -56,7 +72,7 @@ public class Proveedor extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jPanelListaProveedor = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tProveedores = new javax.swing.JTable();
         jPanelFormulario = new javax.swing.JPanel();
         jCheckBoxNuevo = new javax.swing.JCheckBox();
         jCheckBoxEliminar = new javax.swing.JCheckBox();
@@ -123,43 +139,59 @@ public class Proveedor extends javax.swing.JFrame {
         jLabelSPProveedor.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabelSPProveedor.setText("Segundo apellido:");
 
-        jTextFieldEmpresaProveedor.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtEmpresaProveedor.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jTextFieldRFCProveedor.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtRFCProveedor.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jTextFieldNombreProveedor.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtNombreProveedor.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jTextFieldPAProveedor.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtPAProveedor.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jTextFieldSAProveedor.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtSAProveedor.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jTextFieldDireccionProveedor.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtDireccionProveedor.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jTextFieldTelProveedor.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtTelProveedor.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         jPanelBotones.setBackground(new java.awt.Color(255, 255, 255));
         jPanelBotones.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 153)));
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Nuevo.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanelBotones.add(jButton1);
 
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Eliminar.png"))); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanelBotones.add(jButton2);
 
-        jButton4.setBackground(new java.awt.Color(255, 255, 255));
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Consultar.png"))); // NOI18N
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         jPanelBotones.add(jButton4);
 
-        jButton3.setBackground(new java.awt.Color(255, 255, 255));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Modificar.png"))); // NOI18N
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanelBotones.add(jButton3);
 
         jPanelListaProveedor.setBackground(new java.awt.Color(255, 255, 255));
         jPanelListaProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 153)), "Proveedores", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 14))); // NOI18N
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tProveedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -170,7 +202,7 @@ public class Proveedor extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Título 5", "Título 6", "Título 7"
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(tProveedores);
 
         javax.swing.GroupLayout jPanelListaProveedorLayout = new javax.swing.GroupLayout(jPanelListaProveedor);
         jPanelListaProveedor.setLayout(jPanelListaProveedorLayout);
@@ -192,7 +224,6 @@ public class Proveedor extends javax.swing.JFrame {
         jPanelFormulario.setBackground(new java.awt.Color(255, 255, 255));
         jPanelFormulario.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 153)), "Formularios", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 14))); // NOI18N
 
-        jCheckBoxNuevo.setBackground(new java.awt.Color(255, 255, 255));
         jCheckBoxNuevo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jCheckBoxNuevo.setText("   Nuevo");
         jCheckBoxNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Signo1.png"))); // NOI18N
@@ -202,24 +233,20 @@ public class Proveedor extends javax.swing.JFrame {
             }
         });
 
-        jCheckBoxEliminar.setBackground(new java.awt.Color(255, 255, 255));
         jCheckBoxEliminar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jCheckBoxEliminar.setText("   Eliminar");
         jCheckBoxEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Signo2.png"))); // NOI18N
 
-        jCheckBoxBuscar.setBackground(new java.awt.Color(255, 255, 255));
         jCheckBoxBuscar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jCheckBoxBuscar.setText("Buscar");
         jCheckBoxBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Signo4.png"))); // NOI18N
 
-        jCheckBoxModificar.setBackground(new java.awt.Color(255, 255, 255));
         jCheckBoxModificar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jCheckBoxModificar.setText("   Modificar");
         jCheckBoxModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Signo3.png"))); // NOI18N
 
         jLabelDiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Proveedor.png"))); // NOI18N
 
-        jButtonBorrar.setBackground(new java.awt.Color(255, 255, 255));
         jButtonBorrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Borrar.png"))); // NOI18N
 
         jButtonVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Volver.png"))); // NOI18N
@@ -284,8 +311,8 @@ public class Proveedor extends javax.swing.JFrame {
                             .addGroup(jPanelInformacionLayout.createSequentialGroup()
                                 .addComponent(jLabelSPProveedor)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldSAProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTextFieldRFCProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtSAProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtRFCProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanelInformacionLayout.createSequentialGroup()
                                 .addGroup(jPanelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabelEmpresaP)
@@ -295,19 +322,19 @@ public class Proveedor extends javax.swing.JFrame {
                                 .addGroup(jPanelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanelInformacionLayout.createSequentialGroup()
                                         .addGap(22, 22, 22)
-                                        .addComponent(jTextFieldNombreProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtNombreProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelInformacionLayout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextFieldEmpresaProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jTextFieldPAProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtEmpresaProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtPAProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelInformacionLayout.createSequentialGroup()
                                 .addGroup(jPanelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabelDireccionProveedor)
                                     .addComponent(jLabelTelProveedor))
                                 .addGap(55, 55, 55)
                                 .addGroup(jPanelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldDireccionProveedor)
-                                    .addComponent(jTextFieldTelProveedor))))
+                                    .addComponent(txtDireccionProveedor)
+                                    .addComponent(txtTelProveedor))))
                         .addGap(59, 59, 59)
                         .addComponent(jPanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -322,34 +349,34 @@ public class Proveedor extends javax.swing.JFrame {
                     .addGroup(jPanelInformacionLayout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addGroup(jPanelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldEmpresaProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtEmpresaProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelEmpresaP))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldRFCProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtRFCProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabeRFClProveedor))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelInformacionLayout.createSequentialGroup()
                                 .addGroup(jPanelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabelNombreProveedor)
-                                    .addComponent(jTextFieldNombreProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtNombreProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jTextFieldPAProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtPAProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabelAPProveedor))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabelSPProveedor)
-                                    .addComponent(jTextFieldSAProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtSAProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabelDireccionProveedor)
-                                    .addComponent(jTextFieldDireccionProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtDireccionProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jLabelEmpleado))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldTelProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTelProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelTelProveedor)))
                     .addGroup(jPanelInformacionLayout.createSequentialGroup()
                         .addContainerGap()
@@ -380,6 +407,81 @@ public class Proveedor extends javax.swing.JFrame {
         p.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButtonVolverActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        if(v.validarTexto(txtDireccionProveedor.getText(),txtEmpresaProveedor.getText(),
+                txtNombreProveedor.getText(),txtPAProveedor.getText(),txtRFCProveedor.getText(),
+                txtSAProveedor.getText(),txtTelProveedor.getText())){
+            p.setDireccion_Proveedor(txtDireccionProveedor.getText());
+            p.setEmpresa_Proveedor(txtEmpresaProveedor.getText());
+            p.setNombre_Proveedor(txtNombreProveedor.getText());
+            p.setPrimer_Apellido(txtPAProveedor.getText());
+            p.setRfc_Proveedor(txtRFCProveedor.getText());
+            p.setSegundo_Apellido(txtSAProveedor.getText());
+            p.setTelefono_Proveedor(txtTelProveedor.getText());
+            
+            if(pDAO.Agregar_ProveedorVO(p)){
+                JOptionPane.showMessageDialog(this, "Proveedor agregado con exito.");
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+          if(v.validarTexto(txtRFCProveedor.getText())){
+            p.setRfc_Proveedor(txtRFCProveedor.getText());
+            
+            if(pDAO.Eliminar_ProveedorVO(p)){
+                JOptionPane.showMessageDialog(this, "Proveedor elimino con exito.");
+            }
+        }else {
+              JOptionPane.showMessageDialog(this, "Falta informacion");
+          }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        if(v.validarTexto(txtRFCProveedor.getText())){
+            p.setRfc_Proveedor(txtRFCProveedor.getText());
+            
+            ProveedorVO vo = pDAO.getProveedorVO(p);
+            if(!vo.getRfc_Proveedor().equals("")){
+                txtDireccionProveedor.setText(vo.getDireccion_Proveedor());
+                txtEmpresaProveedor.setText(vo.getEmpresa_Proveedor());
+                txtNombreProveedor.setText(vo.getNombre_Proveedor());
+                txtPAProveedor.setText(vo.getPrimer_Apellido());
+                txtSAProveedor.setText(vo.getSegundo_Apellido());
+                txtTelProveedor.setText(vo.getTelefono_Proveedor());
+            }
+        }else {
+              JOptionPane.showMessageDialog(this, "Falta informacion");
+          }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        if(v.validarTexto(txtDireccionProveedor.getText(),txtEmpresaProveedor.getText(),
+                txtNombreProveedor.getText(),txtPAProveedor.getText(),txtRFCProveedor.getText(),
+                txtSAProveedor.getText(),txtTelProveedor.getText())){
+            p.setDireccion_Proveedor(txtDireccionProveedor.getText());
+            p.setEmpresa_Proveedor(txtEmpresaProveedor.getText());
+            p.setNombre_Proveedor(txtNombreProveedor.getText());
+            p.setPrimer_Apellido(txtPAProveedor.getText());
+            p.setRfc_Proveedor(txtRFCProveedor.getText());
+            p.setSegundo_Apellido(txtSAProveedor.getText());
+            p.setTelefono_Proveedor(txtTelProveedor.getText());
+            
+            if(pDAO.Modificar_ProveedorVO(p)){
+                JOptionPane.showMessageDialog(this, "Proveedor actualizado con exito.");
+            }else{
+                 JOptionPane.showMessageDialog(this, "No se pudo actualizar el proveedor.");
+            }
+        }else {
+            JOptionPane.showMessageDialog(this, "Falta informacion");
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -415,13 +517,13 @@ public class Proveedor extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTextField jTextFieldDireccionProveedor;
-    private javax.swing.JTextField jTextFieldEmpresaProveedor;
-    private javax.swing.JTextField jTextFieldNombreProveedor;
-    private javax.swing.JTextField jTextFieldPAProveedor;
-    private javax.swing.JTextField jTextFieldRFCProveedor;
-    private javax.swing.JTextField jTextFieldSAProveedor;
-    private javax.swing.JTextField jTextFieldTelProveedor;
+    private javax.swing.JTable tProveedores;
+    private javax.swing.JTextField txtDireccionProveedor;
+    private javax.swing.JTextField txtEmpresaProveedor;
+    private javax.swing.JTextField txtNombreProveedor;
+    private javax.swing.JTextField txtPAProveedor;
+    private javax.swing.JTextField txtRFCProveedor;
+    private javax.swing.JTextField txtSAProveedor;
+    private javax.swing.JTextField txtTelProveedor;
     // End of variables declaration//GEN-END:variables
 }
